@@ -1,8 +1,9 @@
 resource "aws_vpc" "my_vpc" {
-  cidr_block       = "10.2.0.0/16"
-  instance_tenancy = "default"
+  cidr_block       = var.cidr_block_vpc
+  instance_tenancy = var.instance_tenancy
+
   tags = {
-    Name = "my_vpc"
+    Name = "${var.prefix} my_vpc"
     Department = "Commerce"
     Created_by = "DD"
   }
