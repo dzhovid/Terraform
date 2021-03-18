@@ -42,5 +42,5 @@ variable "instance_type" {
   type = string
 }
 
-variable "domain" {}
-variable "record" {}
+# variable "domain" {}
+# variable "record" {}
