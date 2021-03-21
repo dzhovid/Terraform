@@ -3,6 +3,7 @@ provider "aws" {
 }
 
 module "myapp-vpc" {
+  # source = "github.com/dzhovid/Terraform/vpc"
   source = "./vpc"
   cidr_block_vpc         = var.cidr_block_vpc
   cidr_block_subnet      = var.cidr_block_subnet
@@ -11,6 +12,7 @@ module "myapp-vpc" {
 }
 
 module "myapp-web-server" {
+  # source = "github.com/dzhovid/Terraform/web-server"
   source = "./web-server"
   key_name            = var.key_name
   ssh_key_path        = var.ssh_key_path
