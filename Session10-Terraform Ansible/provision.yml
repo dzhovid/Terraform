@@ -1,0 +1,23 @@
+---
+- name: install 1 package
+  hosts: all
+  tasks:
+    - name: Install 1 package
+      package:
+        name: httpd
+        state: present
+      become: yes
+      become_method: sudo
+    - name: start specific service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+      become: yes
+      become_method: sudo
+    - name: copy index.html
+      copy:
+        src: /d/SprintQA DEVOPS/Terraform/Session10-Terraform Ansible/index.html
+        dest: /var/www/html/
+      become: yes
+      become_method: sudo
