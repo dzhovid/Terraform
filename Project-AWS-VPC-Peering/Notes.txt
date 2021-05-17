@@ -1,0 +1,37 @@
+Create VPC (you can edit the VPC CFN template you have or use Terraform template) in us-east-1 and us-west-2. Establish connection between these VPCs and confirm by pinging a server from east to west successfully. 
+
+Solution: 
+
+Used Terraform to create a VPC and an EC2 instance in AWS US-East-1 and US-West-2 regions. 
+
+The EC2 (Prod) in US-East-1 region was configured to have Private IP so that I could SSH into it. 
+
+The EC2 (Foo) in US-West-2 region was configured to have NO Private IP, to make sure that internet is not used to ping it. 
+
+For successful VPC peering, CIDR Blocks of two VPCs should not overlap. Hence, in US-East-1 region VPC CIDR range was configured as 10.1.0.0/16, and in US-West-2 region it was configured as 10.2.0.0/16. 
+
+ 
+
+ 
+
+ 
+
+  
+
+Created and Sent VPC Peering request from VPC in US-East-1 
+
+ 
+
+Accepted VPC Peering request from VPC in US-West-2 
+
+ 
+
+Next, I edited Route Tables in both VPCs. Added a new routes and associate it with the subnet where the EC2 instance is running. As a target for route I selected Peering Connection. 
+
+Security Group settings were also edited. All Traffic was allowed from peering VPC CIDR range on both instances. 
+
+Successful ping was performed from EC2 (Prod) in N. Virginia region to EC2 (Foo) in Oregon region via VPC peering using the private IP address. 
+
+ 
+
+Clean-up Tip: Delete Peering Connection on both VPCs before destroying the resources, if Terraform is used as a code to create VPCs. Otherwise, you will get error telling that VPCs have dependencies. 
